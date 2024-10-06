@@ -25,7 +25,7 @@ def create_sum_order_items_df(df):
     return sum_order_items_df
 
 # Load your data
-all_df = pd.read_csv(r"C:\Users\FITYAN\OneDrive\Documents\BANGKIT\MONTH 1\Submission\dashboard\all_data.csv")
+all_df = pd.read_csv("https://raw.githubusercontent.com/fityannn/Project-Akhir/refs/heads/main/dashboard/all_data.csv")
 
 # Ensure 'shipping_limit_date' is in datetime format
 all_df['shipping_limit_date'] = pd.to_datetime(all_df['shipping_limit_date'])
