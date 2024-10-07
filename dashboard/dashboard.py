@@ -91,7 +91,6 @@ ax[1].tick_params(axis='x', labelsize=15)
 st.pyplot(fig)
 
 orders_df = pd.read_csv("https://raw.githubusercontent.com/fityannn/Project-Akhir/refs/heads/main/dashboard/orders.csv")
-fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(20, 10))
 monthly_orders_df['shipping_limit_date'] = pd.to_datetime(monthly_orders_df['shipping_limit_date'], format='%Y-%m')
 
 # Filter the DataFrame for the desired date range (September 2017 to August 2018)
