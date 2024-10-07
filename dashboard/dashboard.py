@@ -148,4 +148,4 @@ if not filtered_orders_df.empty:
 plt.tight_layout()  # Adjust layout for better spacing
 
 # Render the plot in Streamlit
-st.pyplot(fig)
+st.pyplot(plt)
