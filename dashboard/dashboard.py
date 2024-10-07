@@ -90,6 +90,7 @@ ax[1].tick_params(axis='x', labelsize=15)
 
 st.pyplot(fig)
 
+orders_df = pd.read_csv("https://raw.githubusercontent.com/fityannn/Project-Akhir/refs/heads/main/dashboard/orders.csv")
 monthly_orders_df['shipping_limit_date'] = pd.to_datetime(monthly_orders_df['shipping_limit_date'], format='%Y-%m')
 
 # Filter the DataFrame for the desired date range (September 2017 to August 2018)
@@ -122,7 +123,9 @@ plt.title("Jumlah Pesanan Bulanan", fontsize=24, loc='center')
 
 # Set x-ticks to show only specific months
 tick_dates = filtered_orders_df['shipping_limit_date'][::3]  # Show every third month
-plt.xticks(tick_dates, tick_dates.dt.strftime('%B %Y'), rotation=45)
+plt.xticks(filtered_orders_df['shipping_limit_date'],
+           filtered_orders_df['shipping_limit_date'].dt.strftime('%B %Y'),
+           rotation=45)
 
 plt.xlabel("Bulan", fontsize=16)
 plt.ylabel("Jumlah Pesanan", fontsize=16)
@@ -145,4 +148,4 @@ if not filtered_orders_df.empty:
 plt.tight_layout()  # Adjust layout for better spacing
 
 # Render the plot in Streamlit
-st.pyplot(plt)
+plt.show()
