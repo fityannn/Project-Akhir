@@ -7,7 +7,7 @@ from babel.numbers import format_currency
 sns.set(style='dark')
 
 def create_monthly_orders_df(df):
-    order_product_df = pd.read_csv('dashboard/order_product_data.csv')
+    order_product_df = pd.read_csv("https://raw.githubusercontent.com/fityannn/Project-Akhir/refs/heads/main/dashboard/order_product_data.csv")
     order_product_df['shipping_limit_date'] = pd.to_datetime(order_product_df['shipping_limit_date'])
 
     monthly_orders_df = df.resample(rule='M', on='shipping_limit_date').agg({
@@ -29,7 +29,7 @@ def create_sum_order_items_df(df):
     return sum_order_items_df
 
 # Load your data
-all_df = pd.read_csv('dashboard/all_data.csv')
+all_df = pd.read_csv("https://raw.githubusercontent.com/fityannn/Project-Akhir/refs/heads/main/dashboard/all_data.csv")
 
 # Ensure 'shipping_limit_date' is in datetime format
 all_df['shipping_limit_date'] = pd.to_datetime(all_df['shipping_limit_date'])
