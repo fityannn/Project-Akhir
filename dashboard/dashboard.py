@@ -122,7 +122,6 @@ plt.fill_between(filtered_orders_df['shipping_limit_date'],
 plt.title("Jumlah Pesanan Bulanan", fontsize=24, loc='center')
 
 # Set x-ticks to show only specific months
-tick_dates = filtered_orders_df['shipping_limit_date'][::3]  # Show every third month
 plt.xticks(filtered_orders_df['shipping_limit_date'],
            filtered_orders_df['shipping_limit_date'].dt.strftime('%B %Y'),
            rotation=45)
