@@ -7,10 +7,14 @@ from babel.numbers import format_currency
 sns.set(style='dark')
 
 def create_monthly_orders_df(df):
-    monthly_orders_df = df.resample(rule='D', on='shipping_limit_date').agg({
+    order_product_df = pd.read_csv('dashboard/order_product_data.csv')
+    order_product_df['shipping_limit_date'] = pd.to_datetime(order_product_df['shipping_limit_date'])
+
+    monthly_orders_df = df.resample(rule='M', on='shipping_limit_date').agg({
         "order_id": "nunique",
         "price": "sum"
     })
+    monthly_orders_df.index = monthly_orders_df.index.strftime('%Y-%m')
     monthly_orders_df = monthly_orders_df.reset_index()
     monthly_orders_df.rename(columns={
         "order_id": "order_count",
@@ -25,7 +29,7 @@ def create_sum_order_items_df(df):
     return sum_order_items_df
 
 # Load your data
-all_df = pd.read_csv("https://raw.githubusercontent.com/fityannn/Project-Akhir/refs/heads/main/dashboard/all_data.csv")
+all_df = pd.read_csv('dashboard/all_data.csv')
 
 # Ensure 'shipping_limit_date' is in datetime format
 all_df['shipping_limit_date'] = pd.to_datetime(all_df['shipping_limit_date'])
@@ -34,31 +38,6 @@ all_df['shipping_limit_date'] = pd.to_datetime(all_df['shipping_limit_date'])
 monthly_orders_df = create_monthly_orders_df(all_df)
 
 st.header('E-Commerce Public :sparkles:')
-
-st.subheader('Daily Orders')
-
-col1, col2 = st.columns(2)
-
-with col1:
-    total_orders = monthly_orders_df.order_count.sum()
-    st.metric("Total orders", value=total_orders)
-
-with col2:
-    total_revenue = format_currency(monthly_orders_df.revenue.sum(), "AUD", locale='es_CO') 
-    st.metric("Total Revenue", value=total_revenue)
-
-fig, ax = plt.subplots(figsize=(15, 5))
-ax.plot(
-    monthly_orders_df["shipping_limit_date"],
-    monthly_orders_df["order_count"],
-    marker='o', 
-    linewidth=2,
-    color="#90CAF9"
-)
-ax.tick_params(axis='y', labelsize=20)
-ax.tick_params(axis='x', labelsize=15)
-
-st.pyplot(fig)
 
 st.subheader("Best & Worst Performing Product")
 
@@ -90,7 +69,7 @@ ax[1].tick_params(axis='x', labelsize=15)
 
 st.pyplot(fig)
 
-orders_df = pd.read_csv("https://raw.githubusercontent.com/fityannn/Project-Akhir/refs/heads/main/dashboard/orders.csv")
+
 monthly_orders_df['shipping_limit_date'] = pd.to_datetime(monthly_orders_df['shipping_limit_date'], format='%Y-%m')
 
 # Filter the DataFrame for the desired date range (September 2017 to August 2018)
